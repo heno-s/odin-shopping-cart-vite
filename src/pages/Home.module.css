@@ -1,0 +1,21 @@
+.container {
+    background-image: url(../images/main-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #0007;
+    z-index: -1;
+}
+
+.app-title {
+    margin-top: -100px;
+}
