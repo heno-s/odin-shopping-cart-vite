@@ -213,13 +213,13 @@ const products = [
 export default function Shop() {
     return (
         <div>
-            <div>
+            <div className="flex gap-4 justify-center overflow-auto py-2 px-1 mb-8 text-2xl font-bold">
                 {categories.map((categoryName) => (
                     <button key={categoryName}>{categoryName}</button>
                 ))}
             </div>
 
-            <div className="products">
+            <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start">
                 {products.map((productData) => (
                     <ShopProduct
                         key={productData.id}
