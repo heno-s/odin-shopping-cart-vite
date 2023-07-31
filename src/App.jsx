@@ -9,7 +9,7 @@ function App() {
     return (
         <div className="flex flex-col h-screen">
             <nav
-                className={`${styles.navbar} py-4 px-6 bg-slate-600 text-4xl text-white flex items-center gap-5`}
+                className={`${styles.navbar} py-4 px-6 bg-slate-600 text-4xl text-white flex items-center gap-10`}
             >
                 <NavLink to="/">
                     <FaHome />
