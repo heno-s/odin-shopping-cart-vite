@@ -221,8 +221,8 @@ export default function Shop() {
     }
 
     return (
-        <div>
-            <div className="flex gap-4 overflow-auto py-4 px-1 mb-16 text-2xl font-bold">
+        <div className="overflow-auto">
+            <div className="flex gap-4 overflow-auto py-4 px-1 mb-4 text-2xl font-bold">
                 {categories.map((categoryName) => (
                     <button
                         key={categoryName}
