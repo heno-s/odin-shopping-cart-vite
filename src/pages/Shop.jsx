@@ -1,10 +1,11 @@
 import ShopProduct from "../components/ShopProduct";
+import { useState } from "react";
 
 const categories = [
-    "electronics",
-    "jewelery",
     "men's clothing",
     "women's clothing",
+    "electronics",
+    "jewelery",
 ];
 
 const products = [
@@ -211,21 +212,43 @@ const products = [
 ];
 
 export default function Shop() {
+    const [activeCategory, setActiveCategory] = useState(
+        categories[0]
+    );
+
+    function handleCategoryChange(categoryName) {
+        setActiveCategory(categoryName);
+    }
+
     return (
         <div>
             <div className="flex gap-4 overflow-auto py-4 px-1 mb-16 text-2xl font-bold">
                 {categories.map((categoryName) => (
-                    <button key={categoryName}>{categoryName}</button>
+                    <button
+                        key={categoryName}
+                        className={
+                            categoryName === activeCategory
+                                ? "text-orange-400"
+                                : ""
+                        }
+                        onClick={() =>
+                            handleCategoryChange(categoryName)
+                        }
+                    >
+                        {categoryName}
+                    </button>
                 ))}
             </div>
 
             <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start">
-                {products.map((productData) => (
-                    <ShopProduct
-                        key={productData.id}
-                        {...productData}
-                    />
-                ))}
+                {products.map((productData) =>
+                    productData.category === activeCategory ? (
+                        <ShopProduct
+                            key={productData.id}
+                            {...productData}
+                        />
+                    ) : null
+                )}
             </div>
         </div>
     );
