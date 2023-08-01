@@ -28,7 +28,7 @@ export default function Shop() {
     }
 
     return (
-        <div className="overflow-auto">
+        <div className="overflow-auto pb-6">
             {categoriesLoading && <h1>Loading categories...</h1>}
             {categories !== null && (
                 <div className="flex gap-4 overflow-auto py-4 px-1 mb-4 text-2xl font-bold">
@@ -55,7 +55,7 @@ export default function Shop() {
             )}
 
             {products !== null && (
-                <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start">
+                <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center">
                     {products.map((productData) =>
                         productData.category === activeCategory ? (
                             <ShopProduct

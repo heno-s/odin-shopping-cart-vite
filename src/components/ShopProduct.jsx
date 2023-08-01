@@ -22,14 +22,16 @@ export default function ShopProduct({ id, image, title, price }) {
     }
 
     return (
-        <div className="flex flex-col gap-3 items-center px-5 justify-center">
-            <span className="font-bold text-center">{title}</span>
+        <div className="flex flex-col gap-3 px-5 justify-center items-center border-gray-400 border-x-2 border-y-2 p-6">
             <img
                 src={image}
                 alt={title}
                 className="w-48 h-48 object-contain"
             />
-            <strong className="text-3xl">{price} €</strong>
+            <span className="font-bold text-center mb-4">
+                {title}
+            </span>
+            <strong className="text-3xl mt-auto">€ {price}</strong>
             <form className="flex justify-between w-[50%] text-xl gap-4">
                 <div className="flex text-2xl gap-2">
                     <button onClick={decrementCount} type="button">
