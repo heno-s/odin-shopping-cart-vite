@@ -1,16 +1,20 @@
 import CartProduct from "../components/CartProduct";
 import useFetch from "../hooks/useFetch";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Cart() {
     const [products, productsLoading, productsError] = useFetch(
         "https://fakestoreapi.com/products"
     );
-    const cartProducts = [
-        { id: 1, quantity: 1 },
-        { id: 3, quantity: 2 },
-        { id: 6, quantity: 2 },
-        { id: 2, quantity: 8 },
-    ];
+    const [cartProducts, setCartProducts] = useLocalStorage(
+        "cartItems",
+        [
+            { id: 1, quantity: 1 },
+            { id: 3, quantity: 2 },
+            { id: 6, quantity: 2 },
+            { id: 2, quantity: 8 },
+        ]
+    );
 
     if (productsLoading) {
         return <h1>Loading products...</h1>;
