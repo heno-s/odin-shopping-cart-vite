@@ -62,15 +62,13 @@ export default function Cart() {
     }
 
     return (
-        <>
-            <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start pt-20 overflow-auto">
+        <div className="pt-20 pb-10 overflow-auto">
+            <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start">
                 {cartItems.map((cartProduct) => {
                     const product = products.find(
                         (product) => cartProduct.id === product.id
                     );
-
                     const productsJSX = [];
-
                     for (let i = 0; i < cartProduct.quantity; i++) {
                         productsJSX.push(
                             <CartProduct
@@ -82,12 +80,10 @@ export default function Cart() {
                             />
                         );
                     }
-
                     return productsJSX;
                 })}
             </div>
-
-            <div className="flex flex-col gap-3 items-center mt-8">
+            <div className="flex flex-col gap-3 items-center mt-10">
                 <span className="text-xl">
                     Total: <strong>{getTotalPrice()} €</strong>
                 </span>
@@ -95,6 +91,6 @@ export default function Cart() {
                     Pay
                 </button>
             </div>
-        </>
+        </div>
     );
 }
