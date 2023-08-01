@@ -43,6 +43,7 @@ export default function ShopProduct({
                 onSubmit={(evt) => {
                     evt.preventDefault();
                     handleAddToCart(id, +productCount);
+                    setProductCount("1");
                 }}
             >
                 <div className="flex text-2xl gap-2">
