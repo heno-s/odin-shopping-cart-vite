@@ -31,6 +31,8 @@ export default function Shop() {
         const cartItem = cartItems.find(
             (cartItem) => cartItem.id === id
         );
+
+        // if cart item already exists, increase quantity, else create new item
         if (cartItem !== undefined) {
             const newCartItems = cartItems.map((cartItem) => {
                 if (cartItem.id === id) {

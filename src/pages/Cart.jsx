@@ -6,15 +6,35 @@ export default function Cart() {
     const [products, productsLoading, productsError] = useFetch(
         "https://fakestoreapi.com/products"
     );
-    const [cartProducts, setCartProducts] = useLocalStorage(
+    const [cartItems, setCartItems] = useLocalStorage(
         "cartItems",
-        [
-            { id: 1, quantity: 1 },
-            { id: 3, quantity: 2 },
-            { id: 6, quantity: 2 },
-            { id: 2, quantity: 8 },
-        ]
+        []
     );
+
+    function handleDeleteFromCart(id) {
+        const cartItem = cartItems.find(
+            (cartItem) => cartItem.id === id
+        );
+
+        // if quantity more than 1, then reduce quantity else delete item
+        if (cartItem.quantity > 1) {
+            const newCartItems = cartItems.map((cartItem) => {
+                if (cartItem.id === id) {
+                    return {
+                        ...cartItem,
+                        quantity: cartItem.quantity - 1,
+                    };
+                }
+                return cartItem;
+            });
+
+            setCartItems(newCartItems);
+        } else {
+            setCartItems(
+                cartItems.filter((cartItem) => cartItem.id !== id)
+            );
+        }
+    }
 
     if (productsLoading) {
         return <h1>Loading products...</h1>;
@@ -26,7 +46,7 @@ export default function Cart() {
 
     return (
         <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start pt-20 overflow-auto">
-            {cartProducts.map((cartProduct) => {
+            {cartItems.map((cartProduct) => {
                 const product = products.find(
                     (product) => cartProduct.id === product.id
                 );
@@ -36,6 +56,9 @@ export default function Cart() {
                 for (let i = 0; i < cartProduct.quantity; i++) {
                     productsJSX.push(
                         <CartProduct
+                            handleDeleteFromCart={
+                                handleDeleteFromCart
+                            }
                             key={product.id + i}
                             {...product}
                         />
