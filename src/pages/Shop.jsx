@@ -2,6 +2,7 @@ import ShopProduct from "../components/ShopProduct";
 import { useEffect, useState } from "react";
 
 import useFetch from "../hooks/useFetch";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Shop() {
     const [products, productsLoading, productsError] = useFetch(
@@ -10,6 +11,10 @@ export default function Shop() {
 
     const [categories, categoriesLoading, categoriesError] = useFetch(
         "https://fakestoreapi.com/products/categories"
+    );
+    const [cartItems, setCartItems] = useLocalStorage(
+        "cartItems",
+        []
     );
     const [activeCategory, setActiveCategory] = useState(null);
 
@@ -21,6 +26,26 @@ export default function Shop() {
 
     function handleCategoryChange(categoryName) {
         setActiveCategory(categoryName);
+    }
+    function handleAddToCart(id, quantity) {
+        const cartItem = cartItems.find(
+            (cartItem) => cartItem.id === id
+        );
+        if (cartItem !== undefined) {
+            const newCartItems = cartItems.map((cartItem) => {
+                if (cartItem.id === id) {
+                    return {
+                        ...cartItem,
+                        quantity: cartItem.quantity + quantity,
+                    };
+                }
+                return cartItem;
+            });
+
+            setCartItems(newCartItems);
+        } else {
+            setCartItems([...cartItems, { id, quantity }]);
+        }
     }
 
     if (productsError || categoriesError) {
@@ -59,6 +84,7 @@ export default function Shop() {
                     {products.map((productData) =>
                         productData.category === activeCategory ? (
                             <ShopProduct
+                                handleAddToCart={handleAddToCart}
                                 key={productData.id}
                                 {...productData}
                             />

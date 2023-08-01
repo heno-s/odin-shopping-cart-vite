@@ -1,7 +1,13 @@
-import { number, string } from "prop-types";
+import { number, string, func } from "prop-types";
 import { useEffect, useState } from "react";
 
-export default function ShopProduct({ id, image, title, price }) {
+export default function ShopProduct({
+    id,
+    image,
+    title,
+    price,
+    handleAddToCart,
+}) {
     const [productCount, setProductCount] = useState("1");
     useEffect(() => {
         if (+productCount < 1) {
@@ -32,7 +38,13 @@ export default function ShopProduct({ id, image, title, price }) {
                 {title}
             </span>
             <strong className="text-3xl mt-auto">€ {price}</strong>
-            <form className="flex justify-between w-[50%] text-xl gap-4">
+            <form
+                className="flex justify-between w-[50%] text-xl gap-4"
+                onSubmit={(evt) => {
+                    evt.preventDefault();
+                    handleAddToCart(id, +productCount);
+                }}
+            >
                 <div className="flex text-2xl gap-2">
                     <button onClick={decrementCount} type="button">
                         -
@@ -61,4 +73,5 @@ ShopProduct.propTypes = {
     image: string,
     title: string,
     price: number,
+    handleAddToCart: func,
 };
