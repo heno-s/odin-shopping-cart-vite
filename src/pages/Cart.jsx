@@ -16,11 +16,7 @@ export default function Cart({
             const product = products.find(
                 (product) => product.id === cartItem.id
             );
-            return (
-                Math.round(
-                    total + cartItem.quantity * product.price * 100
-                ) / 100
-            ); // round is needed because of js weird rounding errors
+            return total + cartItem.quantity * product.price;
         }, 0);
     }
 
