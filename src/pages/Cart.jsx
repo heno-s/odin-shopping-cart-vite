@@ -43,7 +43,7 @@ export default function Cart({
 
     return (
         <div className="pt-20 pb-10 overflow-auto">
-            <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center items-start">
+            <div className="grid grid-cols-[repeat(auto-fill,300px)] gap-10 justify-center">
                 {cartItems.map((cartProduct) => {
                     const product = products.find(
                         (product) => cartProduct.id === product.id

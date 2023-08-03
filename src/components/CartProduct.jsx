@@ -18,7 +18,7 @@ export default function CartProduct({
             <strong className="text-3xl">{price} €</strong>
             <button
                 onClick={() => handleDeleteFromCart(id)}
-                className="border-x-2 border-y-2 py-2 px-4 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                className="border-x-2 border-y-2 py-2 px-4 border-red-600 text-red-600 hover:bg-red-600 hover:text-white mt-auto"
             >
                 Remove
             </button>

@@ -93,7 +93,7 @@ function App() {
                     <FaShoppingCart />
 
                     {cartItemsCount > 0 && (
-                        <div className="absolute top-[-5px] right-[-10px] bg-red-500 text-lg rounded-[50%] w-6 h-6 grid place-items-center">
+                        <div className="absolute top-[-5px] right-[-10px] bg-red-500 text-lg rounded-[50%] w-6 h-6 grid place-items-center text-white ">
                             {cartItemsCount}
                         </div>
                     )}
