@@ -9,12 +9,12 @@ export default function CartProduct({
 }) {
     return (
         <div className="flex flex-col gap-3 items-center px-5 justify-center">
-            <span className="font-bold text-center">{title}</span>
             <img
                 src={image}
                 alt={title}
                 className="w-48 h-48 object-contain"
             />
+            <span className="font-bold text-center">{title}</span>
             <strong className="text-3xl">{price} €</strong>
             <button
                 onClick={() => handleDeleteFromCart(id)}

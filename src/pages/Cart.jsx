@@ -1,47 +1,26 @@
 import CartProduct from "../components/CartProduct";
 import useFetch from "../hooks/useFetch";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { func, array } from "prop-types";
 
-export default function Cart() {
+export default function Cart({
+    cartItems,
+    handleDeleteFromCart,
+    handlePayAction,
+}) {
     const [products, productsLoading, productsError] = useFetch(
         "https://fakestoreapi.com/products"
     );
-    const [cartItems, setCartItems] = useLocalStorage(
-        "cartItems",
-        []
-    );
-
-    function handleDeleteFromCart(id) {
-        const cartItem = cartItems.find(
-            (cartItem) => cartItem.id === id
-        );
-
-        // if quantity more than 1, then reduce quantity else delete item
-        if (cartItem.quantity > 1) {
-            const newCartItems = cartItems.map((cartItem) => {
-                if (cartItem.id === id) {
-                    return {
-                        ...cartItem,
-                        quantity: cartItem.quantity - 1,
-                    };
-                }
-                return cartItem;
-            });
-
-            setCartItems(newCartItems);
-        } else {
-            setCartItems(
-                cartItems.filter((cartItem) => cartItem.id !== id)
-            );
-        }
-    }
 
     function getTotalPrice() {
         return cartItems.reduce((total, cartItem) => {
             const product = products.find(
                 (product) => product.id === cartItem.id
             );
-            return total + cartItem.quantity * product.price;
+            return (
+                Math.round(
+                    total + cartItem.quantity * product.price * 100
+                ) / 100
+            ); // round is needed because of js weird rounding errors
         }, 0);
     }
 
@@ -58,6 +37,7 @@ export default function Cart() {
     }
 
     if (productsError) {
+        console.log(productsError);
         return <h1>Something went wrong, please, reload the page</h1>;
     }
 
@@ -87,10 +67,19 @@ export default function Cart() {
                 <span className="text-xl">
                     Total: <strong>{getTotalPrice()} €</strong>
                 </span>
-                <button className="py-2 px-5 bg-red-500 text-white text-2xl">
+                <button
+                    onClick={handlePayAction}
+                    className="py-2 px-5 bg-red-500 text-white text-2xl"
+                >
                     Pay
                 </button>
             </div>
         </div>
     );
 }
+
+Cart.propTypes = {
+    cartItems: array,
+    handleDeleteFromCart: func,
+    handlePayAction: func,
+};
